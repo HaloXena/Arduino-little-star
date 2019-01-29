@@ -1,0 +1,649 @@
+
+
+int Latchout = 2;
+int Dataout = 3;
+int Clockout = 4;
+int Dataout2 = 30;
+int Dataout3 = 31;
+int Dataout4 = 32;
+int Dataout5 = 33;
+int Clockout2 = 6;
+
+int Latchin = 8;
+int Datain = 9;
+int Clockin = 10;
+int Datain2 = 35;
+int Datain3 = 36;
+int Datain4 = 37;
+int Datain5 = 38;
+int Datain6 = 39;
+int Clockin2 = 40;
+int Clockin3 = 41;
+int Clockin4 = 42;
+int Clockin5 = 43;
+int Clockin6 = 44;
+
+
+
+
+int Output_enable = 5;
+
+long long patten_patten =0;
+long long patten_patten2 = 0;
+long long patten_patten3 = 0;
+long long patten_patten4 = 0;
+long long patten_patten5 = 0;
+
+
+long long patten_patten_temp = 0;
+
+long long patten_bit = 0;
+
+long long patten_tmp = 0;
+long long patten_tmp2 =0;
+long long patten_tmp3 =0;
+long long patten_tmp4 =0;
+long long patten_tmp5 =0;
+
+
+
+void patten_out()                                                                //포문가능   
+{
+int a =0, b=0;
+
+  patten_tmp = patten_patten;
+  patten_tmp2 = patten_patten2;
+  patten_tmp3 = patten_patten3;
+  patten_tmp4 = patten_patten4;
+  patten_tmp5 = patten_patten5;
+  
+  
+  for(a=0; a<40; a++){ 
+    
+  if(patten_tmp & 0x01) {  digitalWrite(Dataout, HIGH); } 
+  else   digitalWrite(Dataout, LOW); 
+  
+  if(patten_tmp2 & 0x01) {  digitalWrite(Dataout2, HIGH); } 
+  else   digitalWrite(Dataout2, LOW);
+  
+  if(patten_tmp3 & 0x01) {  digitalWrite(Dataout3, HIGH); } 
+  else   digitalWrite(Dataout3, LOW); 
+  
+  if(patten_tmp4 & 0x01) {  digitalWrite(Dataout4, HIGH); } 
+  else   digitalWrite(Dataout4, LOW); 
+  
+  
+  digitalWrite(Clockout, HIGH); digitalWrite(Clockout, LOW);
+  
+  patten_tmp = patten_tmp >> 1;
+  patten_tmp2 = patten_tmp2 >> 1;
+  patten_tmp3 = patten_tmp3 >> 1;
+  patten_tmp4 = patten_tmp4 >> 1;
+  }
+  
+   for(b=0; b<32; b++){ 
+  if(patten_tmp5 & 0x01) {  digitalWrite(Dataout5, HIGH); } 
+  else   digitalWrite(Dataout5, LOW); 
+  
+  digitalWrite(Clockout2, HIGH); digitalWrite(Clockout2, LOW);
+  patten_tmp5 = patten_tmp5 >> 1;
+    
+  }
+  digitalWrite(Latchout, HIGH);
+  digitalWrite(Latchout, LOW);
+}
+
+void setup() {
+  pinMode(Dataout, OUTPUT);
+  pinMode(Dataout2, OUTPUT);
+  pinMode(Dataout3, OUTPUT);
+  pinMode(Dataout4, OUTPUT);
+  pinMode(Dataout5, OUTPUT);
+  pinMode(Clockout, OUTPUT);
+  pinMode(Clockout2, OUTPUT);
+  pinMode(Latchout, OUTPUT);
+  
+  pinMode(Datain, INPUT);
+  pinMode(Datain2, INPUT);
+  pinMode(Datain3, INPUT);
+  pinMode(Datain4, INPUT);
+  pinMode(Datain5, INPUT);
+  pinMode(Datain6, INPUT);
+  pinMode(Clockin, OUTPUT);
+  pinMode(Clockin2, OUTPUT);
+  pinMode(Clockin3, OUTPUT);
+  pinMode(Clockin4, OUTPUT);
+  pinMode(Clockin5, OUTPUT);
+  pinMode(Clockin6, OUTPUT);
+  pinMode(Latchin, OUTPUT);
+  
+  pinMode(Output_enable, OUTPUT);
+}
+
+long long key_in_data = 0;
+long long key_in_data2 = 0;
+long long key_in_data3 = 0;
+long long key_in_data4 = 0;
+long long key_in_data5 = 0;
+long long key_in_data6 = 0;
+
+int q=0;
+
+int time_n = 0;
+int time_o = 0;
+int time_xxx = 0;
+int T = 0;
+int ot1 =0, ot2 = 0, ot3= 0, ot4 =0, ot5 =0, ot6 =0, ot7 =0, ot8 =0;
+int ot9 =0, ot10 =0, ot11 =0,ot12 =0,ot13 =0,ot14 =0, ot15 =0, ot16 =0;
+int ot17 = 0, ot18 = 0, ot19 = 0, ot20 = 0, ot21 =0, ot22 =0, ot23 = 0, ot24=0;
+int ot25 =0, ot26 =0, ot27 =0,ot28 =0,ot29 =0,ot30 =0, ot31 =0, ot32 =0;
+int ot33 =0, ot34 =0, ot35 =0,ot36 =0,ot37 =0,ot38 =0, ot39 =0, ot40 =0;
+int ot41 =0, ot42 =0, ot43 =0,ot44 =0,ot45 =0,ot46 =0, ot47 =0, ot48 =0;
+
+long time_M(){                                                                    //포문 불가능. 88
+  
+  
+  time_n = millis();
+  
+  if(time_n == time_o) return (long)0;
+  
+  time_o = time_n;                    //그게 아니라면 뉴타임을 올드타임에 저장
+                                                                                   
+  T = T + 1;                          //그와 동시에 0부터 시작하는 T++증가
+  if(ot1 < 1000) ot1 += 1;
+  if(ot2 < 1000) ot2 += 1; 
+  if(ot3 < 1000) ot3 += 1;  
+  if(ot4 < 1000) ot4 += 1; 
+  if(ot5 < 1000) ot5 += 1;
+  if(ot6 < 1000) ot6 += 1; 
+  if(ot7 < 1000) ot7 += 1;  
+  if(ot8 < 1000) ot8 += 1;
+  if(ot9 < 1000) ot9 += 1;
+  if(ot10 < 1000) ot10 += 1; 
+  if(ot11 < 1000) ot11 += 1;  
+  if(ot12 < 1000) ot12 += 1; 
+  if(ot13 < 1000) ot13 += 1;
+  if(ot14 < 1000) ot14 += 1; 
+  if(ot15 < 1000) ot15 += 1;  
+  if(ot16 < 1000) ot16 += 1;
+  if(ot17 < 1000) ot17 += 1;
+  if(ot18 < 1000) ot18 += 1;
+  if(ot19 < 1000) ot19 += 1; 
+  if(ot20 < 1000) ot20 += 1;  
+  if(ot21 < 1000) ot21 += 1; 
+  if(ot22 < 1000) ot22 += 1;
+  if(ot23 < 1000) ot23 += 1; 
+  if(ot24 < 1000) ot24 += 1;  
+  if(ot25 < 1000) ot25 += 1;
+  if(ot26 < 1000) ot26 += 1; 
+  if(ot27 < 1000) ot27 += 1;  
+  if(ot28 < 1000) ot28 += 1; 
+  if(ot29 < 1000) ot29 += 1;
+  if(ot30 < 1000) ot30 += 1; 
+  if(ot31 < 1000) ot31 += 1;  
+  if(ot32 < 1000) ot32 += 1;
+  if(ot33 < 1000) ot33 += 1;
+  if(ot34 < 1000) ot34 += 1; 
+  if(ot35 < 1000) ot35 += 1;  
+  if(ot36 < 1000) ot36 += 1; 
+  if(ot37 < 1000) ot37 += 1;
+  if(ot38 < 1000) ot38 += 1; 
+  if(ot39 < 1000) ot39 += 1;  
+  if(ot40 < 1000) ot40 += 1;
+  if(ot41 < 1000) ot41 += 1;
+  if(ot42 < 1000) ot42 += 1;
+  if(ot43 < 1000) ot43 += 1; 
+  if(ot44 < 1000) ot44 += 1;  
+  if(ot45 < 1000) ot45 += 1; 
+  if(ot46 < 1000) ot46 += 1;
+  if(ot47 < 1000) ot47 += 1; 
+  if(ot48 < 1000) ot48 += 1;  
+  return T;
+  
+}
+
+int key_calculator(long keydata, int times){
+  int binary = 0;
+  keydata = keydata>>times;
+  binary = keydata & 0x0001; 
+  return binary;
+}
+
+
+
+
+void shiftIn(int myDatain, int myClockin) {           
+                                                       
+
+  digitalWrite(Latchin, HIGH);
+  digitalWrite(Latchin, LOW);
+  
+  key_in_data = digitalRead(Datain);
+  digitalWrite(Clockin, HIGH);
+  digitalWrite(Clockin, LOW);
+  
+  key_in_data = key_in_data<<1;
+  key_in_data  |= digitalRead(Datain);
+  digitalWrite(Clockin, HIGH);
+  digitalWrite(Clockin, LOW);
+  
+  key_in_data = key_in_data<<1;
+  key_in_data  |= digitalRead(Datain);  
+  digitalWrite(Clockin, HIGH);
+  digitalWrite(Clockin, LOW); 
+
+  key_in_data = key_in_data<<1;
+  key_in_data  |= digitalRead(Datain); 
+  digitalWrite(Clockin, HIGH);
+  digitalWrite(Clockin, LOW);
+  
+  key_in_data = key_in_data<<1;
+  key_in_data  |= digitalRead(Datain); 
+  digitalWrite(Clockin, HIGH);
+  digitalWrite(Clockin, LOW);
+  
+  key_in_data = key_in_data<<1;
+  key_in_data  |= digitalRead(Datain); 
+  digitalWrite(Clockin, HIGH);
+  digitalWrite(Clockin, LOW);
+  
+  key_in_data = key_in_data<<1;
+  key_in_data  |= digitalRead(Datain); 
+  digitalWrite(Clockin, HIGH);
+  digitalWrite(Clockin, LOW);
+  
+  key_in_data = key_in_data<<1;
+  key_in_data  |= digitalRead(Datain); 
+  digitalWrite(Clockin, HIGH);
+  digitalWrite(Clockin, LOW);
+  
+
+ //////////////////////////////////// 
+  key_in_data2  = digitalRead(Datain2);
+  digitalWrite(Clockin2, HIGH);
+  digitalWrite(Clockin2, LOW);
+  key_in_data2 = key_in_data2<<1;
+  key_in_data2  |= digitalRead(Datain2);
+  digitalWrite(Clockin2, HIGH);
+  digitalWrite(Clockin2, LOW);
+  key_in_data2 = key_in_data2<<1;
+  key_in_data2  |= digitalRead(Datain2);
+  digitalWrite(Clockin2, HIGH);
+  digitalWrite(Clockin2, LOW);
+  key_in_data2 = key_in_data2<<1;
+  key_in_data2  |= digitalRead(Datain2);
+  digitalWrite(Clockin2, HIGH);
+  digitalWrite(Clockin2, LOW);
+  
+  key_in_data2 = key_in_data2<<1;
+  key_in_data2 |= digitalRead(Datain2);
+  digitalWrite(Clockin2, HIGH);
+  digitalWrite(Clockin2, LOW);
+  
+  key_in_data2 = key_in_data2<<1;
+  key_in_data2  |= digitalRead(Datain2); 
+  digitalWrite(Clockin2, HIGH);
+  digitalWrite(Clockin2, LOW);
+  
+  key_in_data2 = key_in_data2<<1;
+  key_in_data2  |= digitalRead(Datain2); 
+  digitalWrite(Clockin2, HIGH);
+  digitalWrite(Clockin2, LOW);
+  
+  key_in_data2 = key_in_data2<<1;
+  key_in_data2  |= digitalRead(Datain2); 
+  digitalWrite(Clockin2, HIGH);
+  digitalWrite(Clockin2, LOW);
+  /////////////////////////////////////////////
+  
+  
+  key_in_data3  = digitalRead(Datain3);
+  digitalWrite(Clockin3, HIGH);
+  digitalWrite(Clockin3, LOW);
+  
+  key_in_data3 = key_in_data3<<1;
+  key_in_data3  |= digitalRead(Datain3);
+  digitalWrite(Clockin3, HIGH);
+  digitalWrite(Clockin3, LOW);
+  
+  key_in_data3 = key_in_data3<<1;
+  key_in_data3  |= digitalRead(Datain3);
+  digitalWrite(Clockin3, HIGH);
+  digitalWrite(Clockin3, LOW);
+  
+  key_in_data3 = key_in_data3<<1;
+  key_in_data3  |= digitalRead(Datain3);
+  digitalWrite(Clockin3, HIGH);
+  digitalWrite(Clockin3, LOW);
+  
+  key_in_data3 = key_in_data3<<1;
+  key_in_data3  |= digitalRead(Datain3);
+  digitalWrite(Clockin3, HIGH);
+  digitalWrite(Clockin3, LOW);
+  
+  key_in_data3 = key_in_data3<<1;
+  key_in_data3  |= digitalRead(Datain3);
+  digitalWrite(Clockin3, HIGH);
+  digitalWrite(Clockin3, LOW);
+  
+  key_in_data3 = key_in_data3<<1;
+  key_in_data3 |= digitalRead(Datain3);
+  digitalWrite(Clockin3, HIGH);
+  digitalWrite(Clockin3, LOW);
+  key_in_data3 = key_in_data3<<1;
+  key_in_data3  |= digitalRead(Datain3); 
+  digitalWrite(Clockin3, HIGH);
+  digitalWrite(Clockin3, LOW);
+  
+  
+  /////////////////////////////////////////
+  
+  key_in_data4 = digitalRead(Datain4);
+  digitalWrite(Clockin4, HIGH);
+  digitalWrite(Clockin4, LOW);
+  
+
+  key_in_data4 = key_in_data4<<1;
+  key_in_data4 |= digitalRead(Datain4);
+  digitalWrite(Clockin4, HIGH);
+  digitalWrite(Clockin4, LOW);
+  
+  key_in_data4 = key_in_data4<<1;
+  key_in_data4  |= digitalRead(Datain4); 
+  digitalWrite(Clockin4, HIGH);
+  digitalWrite(Clockin4, LOW);
+  
+  key_in_data4 = key_in_data4<<1;
+  key_in_data4  |= digitalRead(Datain4); 
+  digitalWrite(Clockin4, HIGH);
+  digitalWrite(Clockin4, LOW);
+  
+  key_in_data4 = key_in_data4<<1;
+  key_in_data4  |= digitalRead(Datain4); 
+  digitalWrite(Clockin4, HIGH);
+  digitalWrite(Clockin4, LOW);
+  
+  key_in_data4 = key_in_data4<<1;
+  key_in_data4  |= digitalRead(Datain4); 
+  digitalWrite(Clockin4, HIGH);
+  digitalWrite(Clockin4, LOW);
+  
+  key_in_data4 = key_in_data4<<1;
+  key_in_data4  |= digitalRead(Datain4); 
+  digitalWrite(Clockin4, HIGH);
+  digitalWrite(Clockin4, LOW);
+  
+  key_in_data4 = key_in_data4<<1;
+  key_in_data4  |= digitalRead(Datain4); 
+  digitalWrite(Clockin4, HIGH);
+  digitalWrite(Clockin4, LOW);
+  
+  
+  long long key_in_ghost = 0;
+  
+  key_in_ghost = digitalRead(Datain5);
+  digitalWrite(Clockin5, HIGH);
+  digitalWrite(Clockin5, LOW);
+  
+  key_in_ghost = key_in_ghost<<1;
+  key_in_ghost  |= digitalRead(Datain5);
+  digitalWrite(Clockin5, HIGH);
+  digitalWrite(Clockin5, LOW);
+  
+  key_in_ghost = key_in_ghost<<1;
+  key_in_ghost  |= digitalRead(Datain5);
+  digitalWrite(Clockin5, HIGH);
+  digitalWrite(Clockin5, LOW);
+  
+  key_in_ghost = key_in_ghost<<1;
+  key_in_ghost  |= digitalRead(Datain5);
+  digitalWrite(Clockin5, HIGH);
+  digitalWrite(Clockin5, LOW);
+  
+  key_in_ghost = key_in_ghost<<1;
+  key_in_ghost  |= digitalRead(Datain5);
+  digitalWrite(Clockin5, HIGH);
+  digitalWrite(Clockin5, LOW);
+  
+  key_in_ghost = key_in_ghost<<1;
+  key_in_ghost  |= digitalRead(Datain5);
+  digitalWrite(Clockin5, HIGH);
+  digitalWrite(Clockin5, LOW);
+  
+  key_in_ghost = key_in_ghost<<1;
+  key_in_ghost  |= digitalRead(Datain5);
+  digitalWrite(Clockin5, HIGH);
+  digitalWrite(Clockin5, LOW);
+  
+  key_in_ghost = key_in_ghost<<1;
+  key_in_ghost  |= digitalRead(Datain5);
+  digitalWrite(Clockin5, HIGH);
+  digitalWrite(Clockin5, LOW);
+  
+  
+  key_in_data5 = digitalRead(Datain6);
+  digitalWrite(Clockin6, HIGH);
+  digitalWrite(Clockin6, LOW);
+  
+  for(int e=0; e<7; e++){
+  key_in_data5 = key_in_data5<<1;
+  key_in_data5  |= digitalRead(Datain6); 
+  digitalWrite(Clockin6, HIGH);
+  digitalWrite(Clockin6, LOW);
+}
+
+  if(key_calculator(key_in_data2, 0))
+  key_in_data |=  0x0100; 
+  else if(key_calculator(key_in_data2, 0))
+  key_in_data |=  0x0000; 
+  if(key_calculator(key_in_data2, 1))
+  key_in_data  |= 0x0200;
+  else if(key_calculator(key_in_data2, 1))
+  key_in_data |=  0x0000;
+  
+  key_in_data2 = key_in_data2 >> 2;
+  
+  if(key_calculator(key_in_data3, 0))
+  key_in_data2 |=  0x0040; 
+  else if(key_calculator(key_in_data3, 0))
+  key_in_data2 |=  0x0000; 
+  if(key_calculator(key_in_data3, 1))
+  key_in_data2  |= 0x0080;
+  else if(key_calculator(key_in_data3, 1))
+  key_in_data2 |=  0x0000; 
+  if(key_calculator(key_in_data3, 2))
+  key_in_data2 |=  0x0100; 
+  else if(key_calculator(key_in_data3, 2))
+  key_in_data2 |=  0x0000; 
+  if(key_calculator(key_in_data3, 3))
+  key_in_data2  |= 0x0200;
+  else if(key_calculator(key_in_data3, 3))
+  key_in_data2 |=  0x0000; 
+  
+  key_in_data3 = key_in_data3 >> 4;
+  
+  
+  
+  if(key_calculator(key_in_data4, 0))
+  key_in_data3 |=  0x0010; 
+  else key_in_data3 |=  0x0000; 
+  if(key_calculator(key_in_data4, 1))
+  key_in_data3  |= 0x0020;
+  else key_in_data3 |=  0x0000; 
+  if(key_calculator(key_in_data4, 2))
+  key_in_data3 |=  0x0040; 
+  else key_in_data3 |=  0x0000; 
+  if(key_calculator(key_in_data4, 3))
+  key_in_data3  |= 0x0080;
+  else key_in_data3 |=  0x0000; 
+  if(key_calculator(key_in_data4, 4))
+  key_in_data3 |=  0x0100; 
+  else key_in_data3 |=  0x0000; 
+  if(key_calculator(key_in_data4, 5))
+  key_in_data3  |= 0x0200;
+  else key_in_data3 |=  0x0000;
+  
+  key_in_data4 = key_in_data4 >> 6;
+  
+  
+  if(key_calculator(key_in_ghost, 0))
+  key_in_data4 |=  0x0004; 
+  if(key_calculator(key_in_ghost, 1))
+  key_in_data4  |= 0x0008;
+  if(key_calculator(key_in_ghost, 2))
+  key_in_data4 |=  0x0010; 
+  if(key_calculator(key_in_ghost, 3))
+  key_in_data4  |= 0x0020;
+  if(key_calculator(key_in_ghost, 4))
+  key_in_data4 |=  0x0040; 
+  if(key_calculator(key_in_ghost, 5))
+  key_in_data4  |= 0x0080;
+  if(key_calculator(key_in_ghost, 6))
+  key_in_data4 |=  0x0100; 
+  if(key_calculator(key_in_ghost, 7))
+  key_in_data4  |= 0x0200;
+  
+  key_in_ghost = key_in_ghost >> 8;
+
+
+}
+
+void patten_out_ot(int ot)
+ {
+   
+  if(     ot >0    &&   ot <=100)   patten_patten_temp =  0x08;   
+  else if(ot >100  &&   ot <=200)   patten_patten_temp =  0x0C;  
+  else if(ot >200  &&   ot <=300)   patten_patten_temp =  0x0E;    
+  else if(ot >300  &&   ot <=400)   patten_patten_temp =  0x0F;    
+  else if(ot >400  &&   ot <=500)   patten_patten_temp =  0x07;    
+  else if(ot >500  &&   ot <=600)   patten_patten_temp =  0x03;  
+  else if(ot >600  &&   ot <=700)   patten_patten_temp =  0x01;   
+  else if(ot >700 )                 patten_patten_temp =  0x00;  
+}
+
+void loop() {
+  
+  digitalWrite(Output_enable, HIGH);
+  time_M(); 
+  shiftIn(Datain, Clockin); 
+  
+  if(key_in_data & 0x0001)ot1 = 0;
+  if(key_in_data & 0x0002)ot2 = 0;                                            
+  if(key_in_data & 0x0004)ot3 = 0;
+  if(key_in_data & 0x0008)ot4 = 0; 
+  if(key_in_data & 0x0010)ot5 = 0;
+  if(key_in_data & 0x0020)ot6 = 0;
+  if(key_in_data & 0x0040)ot7 = 0; 
+  if(key_in_data & 0x0080)ot8 = 0;
+  if(key_in_data & 0x0100)ot9 = 0;                                            
+  if(key_in_data & 0x0200)ot10 = 0;
+  
+  if(key_in_data2 & 0x0001)ot11 = 0;
+  if(key_in_data2 & 0x0002)ot12 = 0;                                            
+  if(key_in_data2 & 0x0004)ot13 = 0;
+  if(key_in_data2 & 0x0008)ot14 = 0; 
+  if(key_in_data2 & 0x0010)ot15 = 0;
+  if(key_in_data2 & 0x0020)ot16 = 0;
+  if(key_in_data2 & 0x0040)ot17 = 0; 
+  if(key_in_data2 & 0x0080)ot18 = 0;
+  if(key_in_data2 & 0x0100)ot19 = 0;                                            
+  if(key_in_data2 & 0x0200)ot20 = 0;
+  
+  if(key_in_data3 & 0x0001)ot21 = 0;
+  if(key_in_data3 & 0x0002)ot22 = 0;                                            
+  if(key_in_data3 & 0x0004)ot23 = 0;
+  if(key_in_data3 & 0x0008)ot24 = 0; 
+  if(key_in_data3 & 0x0010)ot25 = 0;
+  if(key_in_data3 & 0x0020)ot26 = 0;
+  if(key_in_data3 & 0x0040)ot27 = 0; 
+  if(key_in_data3 & 0x0080)ot28 = 0;
+  if(key_in_data3 & 0x0100)ot29 = 0;                                            
+  if(key_in_data3 & 0x0200)ot30 = 0;
+  
+  if(key_in_data4 & 0x0001)ot31 = 0;
+  if(key_in_data4 & 0x0002)ot32 = 0;                                            
+  if(key_in_data4 & 0x0004)ot33 = 0;
+  if(key_in_data4 & 0x0008)ot34 = 0; 
+  if(key_in_data4 & 0x0010)ot35 = 0;
+  if(key_in_data4 & 0x0020)ot36 = 0;
+  if(key_in_data4 & 0x0040)ot37 = 0; 
+  if(key_in_data4 & 0x0080)ot38 = 0;
+  if(key_in_data4 & 0x0100)ot39 = 0;                                            
+  if(key_in_data4 & 0x0200)ot40 = 0;
+  
+  if(key_in_data5 & 0x0001)ot41 = 0;
+  if(key_in_data5 & 0x0002)ot42 = 0;                                            
+  if(key_in_data5 & 0x0004)ot43 = 0;
+  if(key_in_data5 & 0x0008)ot44 = 0; 
+  if(key_in_data5 & 0x0010)ot45 = 0;
+  if(key_in_data5 & 0x0020)ot46 = 0;
+  if(key_in_data5 & 0x0040)ot47 = 0; 
+  if(key_in_data5 & 0x0080)ot48 = 0;
+  
+  patten_patten   = 0x0000000000000000;                                                     
+  patten_patten2  = 0x0000000000000000;
+  patten_patten3  = 0x0000000000000000;                                                     
+  patten_patten4  = 0x0000000000000000;
+  patten_patten5  = 0x0000000000000000;    
+   
+   
+   patten_out_ot(ot1);    patten_patten |= patten_patten_temp;patten_patten<<=4;
+   patten_out_ot(ot2);    patten_patten |= patten_patten_temp;patten_patten<<=4;                    
+   patten_out_ot(ot3);    patten_patten |= patten_patten_temp;patten_patten<<=4;  
+   patten_out_ot(ot4);    patten_patten |= patten_patten_temp;patten_patten<<=4;  
+   patten_out_ot(ot5);    patten_patten |= patten_patten_temp;patten_patten<<=4;
+   patten_out_ot(ot6);    patten_patten |= patten_patten_temp;patten_patten<<=4;                    
+   patten_out_ot(ot7);    patten_patten |= patten_patten_temp;patten_patten<<=4;  
+   patten_out_ot(ot8);    patten_patten |= patten_patten_temp;patten_patten<<=4;
+   patten_out_ot(ot9);    patten_patten |= patten_patten_temp;patten_patten<<=4;
+   patten_out_ot(ot10);   patten_patten |= patten_patten_temp;    
+   
+   patten_out_ot(ot11);   patten_patten2 |= patten_patten_temp;patten_patten2<<=4;  
+   patten_out_ot(ot12);   patten_patten2 |= patten_patten_temp;patten_patten2<<=4;  
+   patten_out_ot(ot13);   patten_patten2 |= patten_patten_temp;patten_patten2<<=4;
+   patten_out_ot(ot14);   patten_patten2 |= patten_patten_temp;patten_patten2<<=4;                    
+   patten_out_ot(ot15);   patten_patten2 |= patten_patten_temp;patten_patten2<<=4; 
+   patten_out_ot(ot16);   patten_patten2 |= patten_patten_temp;patten_patten2<<=4;  
+   patten_out_ot(ot17);   patten_patten2 |= patten_patten_temp;patten_patten2<<=4;  
+   patten_out_ot(ot18);   patten_patten2 |= patten_patten_temp;patten_patten2<<=4;
+   patten_out_ot(ot19);   patten_patten2 |= patten_patten_temp;patten_patten2<<=4;                    
+   patten_out_ot(ot20);   patten_patten2 |= patten_patten_temp;
+   
+   patten_out_ot(ot21);   patten_patten3 |= patten_patten_temp;patten_patten3<<=4;  
+   patten_out_ot(ot22);   patten_patten3 |= patten_patten_temp;patten_patten3<<=4;  
+   patten_out_ot(ot23);   patten_patten3 |= patten_patten_temp;patten_patten3<<=4;
+   patten_out_ot(ot24);   patten_patten3 |= patten_patten_temp;patten_patten3<<=4;                    
+   patten_out_ot(ot25);   patten_patten3 |= patten_patten_temp;patten_patten3<<=4; 
+   patten_out_ot(ot26);   patten_patten3 |= patten_patten_temp;patten_patten3<<=4;  
+   patten_out_ot(ot27);   patten_patten3 |= patten_patten_temp;patten_patten3<<=4;  
+   patten_out_ot(ot28);   patten_patten3 |= patten_patten_temp;patten_patten3<<=4;
+   patten_out_ot(ot29);   patten_patten3 |= patten_patten_temp;patten_patten3<<=4;                    
+   patten_out_ot(ot30);   patten_patten3 |= patten_patten_temp;
+   
+   patten_out_ot(ot31);   patten_patten4 |= patten_patten_temp;patten_patten4<<=4;  
+   patten_out_ot(ot32);   patten_patten4 |= patten_patten_temp;patten_patten4<<=4;  
+   patten_out_ot(ot33);   patten_patten4 |= patten_patten_temp;patten_patten4<<=4;
+   patten_out_ot(ot34);   patten_patten4 |= patten_patten_temp;patten_patten4<<=4;                    
+   patten_out_ot(ot35);   patten_patten4 |= patten_patten_temp;patten_patten4<<=4; 
+   patten_out_ot(ot36);   patten_patten4 |= patten_patten_temp;patten_patten4<<=4;  
+   patten_out_ot(ot37);   patten_patten4 |= patten_patten_temp;patten_patten4<<=4;  
+   patten_out_ot(ot38);   patten_patten4 |= patten_patten_temp;patten_patten4<<=4;
+   patten_out_ot(ot39);   patten_patten4 |= patten_patten_temp;patten_patten4<<=4;                    
+   patten_out_ot(ot40);   patten_patten4 |= patten_patten_temp;
+  
+   patten_out_ot(ot41);   patten_patten5 |= patten_patten_temp;patten_patten5<<=4;  
+   patten_out_ot(ot42);   patten_patten5 |= patten_patten_temp;patten_patten5<<=4;  
+   patten_out_ot(ot43);   patten_patten5 |= patten_patten_temp;patten_patten5<<=4;
+   patten_out_ot(ot44);   patten_patten5 |= patten_patten_temp;patten_patten5<<=4;                    
+   patten_out_ot(ot45);   patten_patten5 |= patten_patten_temp;patten_patten5<<=4; 
+   patten_out_ot(ot46);   patten_patten5 |= patten_patten_temp;patten_patten5<<=4;  
+   patten_out_ot(ot47);   patten_patten5 |= patten_patten_temp;patten_patten5<<=4;  
+   patten_out_ot(ot48);   patten_patten5 |= patten_patten_temp;
+   
+   patten_out();
+}
+  
+  
+  
+  
+  
